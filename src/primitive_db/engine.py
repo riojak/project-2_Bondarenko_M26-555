@@ -1,15 +1,12 @@
-import prompt
 import shlex
-from primitive_db.core import create_table
-from primitive_db.core import drop_table
-from primitive_db.utils import load_metadata
-from primitive_db.utils import save_metadata
+
+import prompt
+
+from primitive_db.core import create_table, drop_table
+from primitive_db.utils import load_metadata, save_metadata
 
 
 def run():
-    print("Первая попытка запустить проект!")
-    print()
-    print("***")
     help_func()
     while True:
         metadata = load_metadata("db_meta.json")
@@ -39,9 +36,25 @@ def run():
             result = drop_table(metadata, table_name)
             if result is not None:
                 save_metadata("db_meta.json", result)
+        elif action == "list_tables":
+            if metadata == {}:
+                print("Таблиц пока нет.")
+                continue
+            for name in metadata:
+                print(f"{name}")
+        else:
+            print(f"Функции {action} нет. Попробуйте снова.")
 
 
 def help_func():
+    print("\n***Процесс работы с таблицей***\n")
+    print("Функции:")
+    print("<command> create_table <имя_таблицы> <столбец1:тип> .. - создать таблицу")
+    print("Доступные типы столбцов: int, str, bool")
+    print("<command> list_tables - показать список всех таблиц")
+    print("<command> drop_table <имя_таблицы> - удалить таблицу")
+
+    print("\nОбщие команды:")
     print("<command> exit - выйти из программы")
-    print("<command> help - справочная информация")
+    print("<command> help - справочная информация\n")
     

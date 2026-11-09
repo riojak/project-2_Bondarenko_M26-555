@@ -6,17 +6,17 @@ def create_table(metadata, table_name, columns):
     id_exists = False
     for column in columns:
         parts = column.split(":")
-        if len(parts)!= 2 or "" in parts:
-            print("Ошибка: Не указан тип или название столбца.")
+        if len(parts) != 2 or "" in parts:
+            print(f'Некорректное значение: {column}. Попробуйте снова.')
             return
         if parts[0] == "ID":
             id_exists = True
         if parts[0] == "ID" and parts[1] != "int":
-            print('Ошибка: ID может быть только "int"')
+            print(f'Некорректное значение: {column}. Попробуйте снова.')
             return
         data_type = parts[1]
         if data_type not in allowed_types:
-            print(f'Ошибка: Указанный тип "{data_type}" не поддерживается.')
+            print(f'Некорректное значение: {data_type}. Попробуйте снова.')
             return
     if not id_exists:
         columns.insert(0, "ID:int")
