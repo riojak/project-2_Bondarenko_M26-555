@@ -42,13 +42,13 @@ def insert(metadata, table_name, values):
         return
     for value, column in zip(values, metadata[table_name][1:]):
         parts = column.split(":")
-        if parts[1] == "str" and type(value) != str:
+        if parts[1] == "str" and type(value) is not str:
             print("Ошибка: Некорректный тип данных.")
             return
-        if parts[1] == "int" and type(value) != int:
+        if parts[1] == "int" and type(value) is not int:
             print("Ошибка: Некорректный тип данных.")
             return
-        if parts[1] == "bool" and type(value) != bool:
+        if parts[1] == "bool" and type(value) is not bool:
             print("Ошибка: Некорректный тип данных.")
             return
     table_data = load_table_data(table_name)
